@@ -7,8 +7,7 @@
         </encoder>
     </appender>
 
-    <!--<logger name="com.vaadin.spring" level="DEBUG"/>-->
-    <logger name="ru.eugenehr" level="DEBUG"/>
+    <!--<logger name="ru.eugenehr" level="DEBUG"/>-->
 
     <root level="INFO">
         <appender-ref ref="stdout"/>
