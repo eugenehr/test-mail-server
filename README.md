@@ -1,6 +1,6 @@
 ## test-mail-server
 
-An SMTP/POP3 server for testing purposes purely written on Java with [Netty](https://netty.io) framework. 
+An SMTP/POP3 server for testing purposes purely written on Java&trade; with the [Netty](https://netty.io) framework. 
 
 
 ### Requirements
