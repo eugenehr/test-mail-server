@@ -37,6 +37,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 
 import ru.eugenehr.testmailserver.event.SessionLogEvent;
 import ru.eugenehr.testmailserver.event.SessionLogEvent.Direction;
@@ -96,6 +97,13 @@ abstract class ServerPane extends BorderPane {
         portField.minWidthProperty().bind(portField.prefWidthProperty());
         portField.setTooltip(new Tooltip(getString("port.tooltip")));
         portField.disableProperty().bind(startedProperty);
+
+        final Label portTitle = new Label(getString("port.title"));
+        portTitle.setLabelFor(portField);
+        portTitle.setMinWidth(Region.USE_PREF_SIZE);
+        portTitle.setTooltip(portField.getTooltip());
+        titlePane.getChildren().add(portTitle);
+
         titlePane.getChildren().add(portField);
 
         final Image startImage = new Image(ServerPane.class.getResource("/start.png").toExternalForm());

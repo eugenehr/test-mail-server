@@ -19,7 +19,9 @@ package ru.eugenehr.testmailserver.ui;
 import com.google.common.eventbus.Subscribe;
 import io.netty.channel.Channel;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.Region;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,7 +52,13 @@ public class SMTPPane extends ServerPane {
         redirectToSender.selectedProperty().addListener((observable, oldValue, newValue) ->
             MailServer.getInstance().setRedirectToSender(newValue));
 
-        titlePane.getChildren().add(1, redirectToSender);
+        Label redirectToSenderTitle = new Label(getString("redirectToSender.title"));
+        redirectToSenderTitle.setLabelFor(redirectToSender);
+        redirectToSenderTitle.setMinWidth(Region.USE_PREF_SIZE);
+        redirectToSenderTitle.setTooltip(redirectToSender.getTooltip());
+
+        titlePane.getChildren().add(1, redirectToSenderTitle);
+        titlePane.getChildren().add(2, redirectToSender);
     }
 
     /**
