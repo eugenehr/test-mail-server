@@ -48,6 +48,10 @@ Shows a list of POP3 transactions and its details.
 Shows a list of user's mailboxes, messages in mailboxes and message's bodies.
 
 
+### Erlang version
+
+An [Erlang&trade;-based version](https://github.com/eugenehr/testmailsrv) is also available.
+
 ### Licensing mumbo-jumbo
 
 This software is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
