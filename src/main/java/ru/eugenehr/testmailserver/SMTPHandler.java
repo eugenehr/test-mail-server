@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 (c) Eugene Khrustalev
+ * Copyright 2018-2020 (c) Eugene Khrustalev.
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler.Sharable;
@@ -50,6 +52,7 @@ import ru.eugenehr.testmailserver.ui.UIEventBus;
 public class SMTPHandler extends ChannelInboundHandlerAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(SMTPHandler.class);
+    private static final Pattern RCPT_PATTERN = Pattern.compile("^.*<([^>]+)>$");
 
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
@@ -154,7 +157,11 @@ public class SMTPHandler extends ChannelInboundHandlerAdapter {
                 if (from.isEmpty()) {
                     response = "550 no sender given\r\n";
                 } else {
-                    state.from = from;
+                    final Matcher matcher = RCPT_PATTERN.matcher(from);
+                    state.from = (matcher.matches() ? matcher.group(1) : from).trim();
+                    if (state.from.startsWith("<") && state.from.endsWith(">")) {
+                        state.from = state.from.substring(1, state.from.length() - 1);
+                    }
                     response = "250 sender " + state.from + " OK\r\n";
                 }
             } else if (message.startsWith("RCPT TO:")) {
